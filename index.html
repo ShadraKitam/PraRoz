@@ -14,6 +14,7 @@
 <body>
     <div class="main">
         <!-- Navigation -->
+        
         <nav class="navbar" role="navigation" aria-label="Navigation principale">
             <div class="icon">
                 <div class="logo-container">
@@ -46,6 +47,11 @@
             </div>
         </nav>
 
+        <!-- Back to Top Button -->
+        <button id="back-to-top" class="back-to-top" aria-label="Retour en haut de page" title="Retour en haut">
+            <ion-icon name="arrow-up-outline"></ion-icon>
+        </button>
+
         <!-- Main Content -->
         <main class="content" role="main">
             <!-- Home Section -->
@@ -54,8 +60,12 @@
                 <p class="par">Envirofactory combine expertise technique et innovation écologique pour offrir des solutions durables dans le domaine de la technologie électrique et du conseil environnemental. Nous nous engageons à protéger la nature tout en développant des énergies propres et en réduisant l'empreinte carbone.</p>
 
                 <button class="cn" aria-label="Découvrir nos solutions écologiques">
-                    <a href="#solutions">DÉCOUVRIR NOS SOLUTIONS</a>
+                    <a href="#services">DÉCOUVRIR NOS SOLUTIONS</a>
                 </button>
+                
+                <div class="hero-actions">
+                    <a href="#ecology" class="hero-link">Découvrir notre engagement écologique</a>
+                </div>
             </section>
 
             <!-- Contact Form -->
@@ -279,6 +289,55 @@
         </section>
     </div>
 
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Envirofactory</h4>
+                    <p>Votre partenaire pour un avenir durable et écologique.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Suivez-nous sur LinkedIn"><ion-icon name="logo-linkedin"></ion-icon></a>
+                        <a href="#" aria-label="Suivez-nous sur Twitter"><ion-icon name="logo-twitter"></ion-icon></a>
+                        <a href="#" aria-label="Suivez-nous sur Facebook"><ion-icon name="logo-facebook"></ion-icon></a>
+                        <a href="#" aria-label="Suivez-nous sur Instagram"><ion-icon name="logo-instagram"></ion-icon></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#services">Technologie Électrique Verte</a></li>
+                        <li><a href="#services">Conseil Environnemental</a></li>
+                        <li><a href="#services">Énergies Renouvelables</a></li>
+                        <li><a href="#services">Audit Carbone</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>À Propos</h4>
+                    <ul>
+                        <li><a href="#about">Notre Mission</a></li>
+                        <li><a href="#about">Notre Vision</a></li>
+                        <li><a href="#ecology">Engagement Écologique</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Inner Mongolia, Chine</p>
+                    <p>contact@envirofactory.com</p>
+                    <p>+86 XXX XXX XXXX</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Envirofactory. Tous droits réservés. | Inner Mongolia Gesi Electrical Technology Consulting Co. Ltd</p>
+            </div>
+        </div>
+    </footer>
+
     <!-- Scripts -->
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script>
@@ -308,6 +367,35 @@
                 e.preventDefault();
                 // Add your form submission logic here
                 console.log('Formulaire soumis');
+                
+                // Show success message
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Message envoyé !';
+                submitBtn.style.background = 'var(--primary-color)';
+                
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.background = '';
+                }, 3000);
+            });
+        });
+
+        // Back to top functionality
+        const backToTopBtn = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
         });
 
@@ -326,8 +414,32 @@
         }, observerOptions);
 
         // Observe elements for animation
-        document.querySelectorAll('.form input, .form textarea, .form .btnn, .form .link, .form .liw, .icons, .service-card, .feature-item, .contact-item').forEach(el => {
+        document.querySelectorAll('.form input, .form textarea, .form .btnn, .form .link, .form .liw, .icons, .service-card, .feature-item, .contact-item, .stat-item, .footer-section').forEach(el => {
             observer.observe(el);
+        });
+
+        // Add hover effects for service cards
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add search functionality
+        const searchInput = document.querySelector('.srch');
+        const searchBtn = document.querySelector('.btn');
+        
+        searchBtn.addEventListener('click', function() {
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm) {
+                // Scroll to services section and highlight relevant content
+                document.querySelector('#services').scrollIntoView({ behavior: 'smooth' });
+                console.log('Recherche pour:', searchTerm);
+            }
         });
     </script>
 </body>
